@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Golazo! - Brasileirão 2025: Tabela, Jogos e Estatísticas</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Indicadores visuais das zonas (mantido) */
+        .libertadores {
+            box-shadow: inset 4px 0 0 #3b82f6;
+        }
+
+        .pre-libertadores {
+            box-shadow: inset 4px 0 0 #06b6d4;
+        }
+
+        .sulamericana {
+            box-shadow: inset 4px 0 0 #22c55e;
+        }
+
+        .rebaixamento {
+            box-shadow: inset 4px 0 0 #ef4444;
+        }
+
+        /* Estilo da barra de rolagem (opcional para manter a estética em navegadores WebKit) */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* CSS para o TAB SYSTEM (Profissionalismo e Interatividade) */
+        /* Esta classe garante a animação suave e esconde o conteúdo inicialmente */
+        .tab-content {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(10px);
+            display: none;
+        }
+
+        /* A classe ativa que o JS aplica ao tab selecionado */
+        .tab-content.active-tab {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
+        /* Estilo para o link de aba ativo no menu desktop */
+        .tab-link.active-link {
+            color: white !important;
+            font-weight: 700 !important;
+            border-bottom-width: 3px;
+            border-color: #facc15 !important; /* amarelo-400 */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-slate-800 pt-16">
+    <header class="fixed w-full top-0 z-50 bg-gradient-to-r from-green-900 to-green-700 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+
+                <a href="#tabela" class="flex items-center gap-2 text-white group tab-link" data-tab="tabela">
+                    <div
+                        class="bg-white text-green-800 p-1.5 rounded-lg group-hover:rotate-12 transition-transform duration-300">
+                        <i data-feather="dribbble" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-2xl font-extrabold tracking-tight">Golazo<span
+                            class="text-green-300">!</span></span>
+                </a>
+
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#jogos" class="text-green-100 hover:text-white font-medium transition-colors tab-link"
+                        data-tab="jogos">Jogos</a>
+                    <a href="#tabela"
+                        class="text-green-100 hover:text-white font-medium transition-colors tab-link active-link"
+                        data-tab="tabela">Tabela</a>
+                    <a href="#artilharia" class="text-green-100 hover:text-white font-medium transition-colors tab-link"
+                        data-tab="artilharia">Artilharia</a>
+                    <a href="#estatisticas"
+                        class="text-green-100 hover:text-white font-medium transition-colors tab-link"
+                        data-tab="estatisticas">Estatísticas</a>
+                    <a href="#mercado" class="text-green-100 hover:text-white font-medium transition-colors tab-link"
+                        data-tab="mercado">Mercado da Bola</a>
+                    <a href="#simulador" class="text-green-100 hover:text-white font-medium transition-colors tab-link"
+                        data-tab="simulador">Simulador</a>
+                </nav>
+
+                <div class="hidden md:flex items-center gap-4">
+                    <button class="text-green-100 hover:text-white"><i data-feather="search"
+                            class="w-5 h-5"></i></button>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                    <i data-feather="menu" class="w-7 h-7"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-green-800 border-t border-green-700">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#jogos" class="block py-2 text-green-100 hover:bg-green-700 px-2 rounded tab-link"
+                    data-tab="jogos">Jogos</a>
+                <a href="#tabela" class="block py-2 text-green-100 hover:bg-green-700 px-2 rounded tab-link active-link"
+                    data-tab="tabela">Tabela</a>
+                <a href="#artilharia" class="block py-2 text-green-100 hover:bg-green-700 px-2 rounded tab-link"
+                    data-tab="artilharia">Artilharia</a>
+                <a href="#estatisticas" class="block py-2 text-green-100 hover:bg-green-700 px-2 rounded tab-link"
+                    data-tab="estatisticas">Estatísticas</a>
+                <a href="#mercado" class="block py-2 text-green-100 hover:bg-green-700 px-2 rounded tab-link"
+                    data-tab="mercado">Mercado da Bola</a>
+                <a href="#simulador" class="block py-2 text-green-100 hover:bg-green-700 px-2 rounded tab-link"
+                    data-tab="simulador">Simulador</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <div class="relative w-full bg-slate-900 md:flex mb-12 rounded-xl shadow-2xl overflow-hidden min-h-[300px]">
+            <div class="md:w-2/3 w-full h-full">
+                <img src="https://via.placeholder.com/800x400/10b981/ffffff?text=FLAMENGO+x+CRUZEIRO+|+RODADA+22"
+                    class="w-full h-full object-cover min-h-[300px]" alt="Flamengo x Cruzeiro">
+            </div>
+
+            <div class="md:w-1/3 h-full p-6 md:p-10 flex flex-col justify-center text-white relative">
+                <span class="text-sm font-bold text-green-400">ÚLTIMA RODADA</span>
+                <span class="text-green-400 font-bold uppercase tracking-wider text-sm mb-2">
+                    Análise Pós-Jogo
+                </span>
+                <h1 class="text-3xl font-extrabold mb-4">
+                    A briga pelo topo pega fogo!
+                </h1>
+                <p class="text-slate-400">
+                    O Flamengo dispara, mas o Cruzeiro segue na cola. Veja como ficou a classificação atualizada após os
+                    jogos de quarta.
+                </p>
+                <a href="https://exemplo.com/analise-completa" target="_blank" class="mt-4 text-yellow-400 font-bold hover:text-yellow-300 transition-colors flex items-center gap-2">
+                    Ler Análise Completa <i data-feather="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+
+        <div id="tab-container">
+
+            <section id="tabela" class="tab-content active-tab mb-12">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-4 gap-4">
+                    <h2 class="text-3xl font-extrabold text-slate-800 flex items-center gap-3">
+                        <i data-feather="list" class="w-7 h-7 text-yellow-500"></i>
+                        Classificação Oficial
+                    </h2>
+                    <div
+                        class="flex items-center gap-2 text-xs text-slate-500 bg-white px-3 py-1 rounded-full shadow-sm border">
+                        <span class="h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span>Atualizado: Hoje, 17:30</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden">
+                    <div class="overflow-x-auto scrollbar-hide">
+                        <table class="w-full text-sm text-left whitespace-nowrap">
+                            <thead
+                                class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200 sticky top-0 z-10">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3 text-center font-bold">Pos</th>
+                                    <th scope="col" class="px-4 py-3 font-bold">Clube</th>
+                                    <th scope="col"
+                                        class="px-4 py-3 text-center font-bold text-slate-900 bg-slate-100">PTS</th>
+                                    <th scope="col" class="px-4 py-3 text-center">J</th>
+                                    <th scope="col" class="px-4 py-3 text-center">V</th>
+                                    <th scope="col" class="px-4 py-3 text-center">E</th>
+                                    <th scope="col" class="px-4 py-3 text-center">D</th>
+                                    <th scope="col" class="px-4 py-3 text-center hidden md:table-cell">GP</th>
+                                    <th scope="col" class="px-4 py-3 text-center hidden md:table-cell">GC</th>
+                                    <th scope="col" class="px-4 py-3 text-center">SG</th>
+                                    <th scope="col" class="px-4 py-3 text-center">%</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="hover:bg-blue-50 transition-colors libertadores">
+                                    <td class="px-4 py-3 text-center text-blue-600 font-bold">1</td>
+                                    <td class="px-4 py-3 font-semibold flex items-center">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Flamengo_braz_logo.svg"
+                                            class="w-6 h-6 mr-3" alt="FLA"> Flamengo
+                                    </td>
+                                    <td class="px-4 py-3 text-center font-black text-lg bg-slate-50">47</td>
+                                    <td class="px-4 py-3 text-center">21</td>
+                                    <td class="px-4 py-3 text-center text-green-600">14</td>
+                                    <td class="px-4 py-3 text-center text-gray-400">5</td>
+                                    <td class="px-4 py-3 text-center text-red-400">2</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">45</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">10</td>
+                                    <td class="px-4 py-3 text-center font-bold text-green-600">+35</td>
+                                    <td class="px-4 py-3 text-center text-xs text-gray-400">74%</td>
+                                </tr>
+                                <tr class="hover:bg-blue-50 transition-colors libertadores">
+                                    <td class="px-4 py-3 text-center text-blue-600 font-bold">2</td>
+                                    <td class="px-4 py-3 font-semibold flex items-center">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Logo_Cruzeiro_1996.png"
+                                            class="w-6 h-6 mr-3" alt="CRU"> Cruzeiro
+                                    </td>
+                                    <td class="px-4 py-3 text-center font-black text-lg bg-slate-50">44</td>
+                                    <td class="px-4 py-3 text-center">22</td>
+                                    <td class="px-4 py-3 text-center text-green-600">13</td>
+                                    <td class="px-4 py-3 text-center text-gray-400">5</td>
+                                    <td class="px-4 py-3 text-center text-red-400">4</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">35</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">15</td>
+                                    <td class="px-4 py-3 text-center font-bold text-green-600">+20</td>
+                                    <td class="px-4 py-3 text-center text-xs text-gray-400">66%</td>
+                                </tr>
+                                <tr class="hover:bg-red-50 transition-colors rebaixamento">
+                                    <td class="px-4 py-3 text-center text-red-600 font-bold">17</td>
+                                    <td class="px-4 py-3 font-semibold flex items-center">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/EC_Vitória_logo.svg"
+                                            class="w-6 h-6 mr-3" alt="VIT"> Vitória
+                                    </td>
+                                    <td class="px-4 py-3 text-center font-black text-lg bg-slate-50">22</td>
+                                    <td class="px-4 py-3 text-center">22</td>
+                                    <td class="px-4 py-3 text-center text-red-400">4</td>
+                                    <td class="px-4 py-3 text-center">10</td>
+                                    <td class="px-4 py-3 text-center text-red-400">8</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">19</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">32</td>
+                                    <td class="px-4 py-3 text-center font-bold text-red-500">-13</td>
+                                    <td class="px-4 py-3 text-center text-xs text-gray-400">33%</td>
+                                </tr>
+                                <tr class="hover:bg-red-50 transition-colors rebaixamento">
+                                    <td class="px-4 py-3 text-center text-red-600 font-bold">20</td>
+                                    <td class="px-4 py-3 font-semibold flex items-center">
+                                        <i data-feather="x-circle" class="w-6 h-6 mr-3 text-red-500"></i> Time Z
+                                    </td>
+                                    <td class="px-4 py-3 text-center font-black text-lg bg-slate-50">15</td>
+                                    <td class="px-4 py-3 text-center">22</td>
+                                    <td class="px-4 py-3 text-center text-red-400">3</td>
+                                    <td class="px-4 py-3 text-center">6</td>
+                                    <td class="px-4 py-3 text-center text-red-400">13</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">18</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">40</td>
+                                    <td class="px-4 py-3 text-center font-bold text-red-500">-22</td>
+                                    <td class="px-4 py-3 text-center text-xs text-gray-400">22%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-xs text-slate-500 flex flex-wrap gap-x-6 gap-y-2">
+                    <div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-blue-500"></span> Libertadores</div>
+                    <div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-cyan-500"></span> Pré-Libertadores</div>
+                    <div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-green-500"></span> Sulamericana</div>
+                    <div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-red-500"></span> Rebaixamento</div>
+                </div>
+            </section>
+
+            <section id="jogos" class="tab-content mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-800 flex items-center gap-3 mb-6">
+                    <i data-feather="calendar" class="w-7 h-7 text-yellow-500"></i>
+                    Calendário de Jogos
+                </h2>
+
+                <div
+                    class="flex items-center justify-between bg-white p-4 rounded-t-xl border-b border-gray-200 shadow-md">
+                    <span class="text-lg font-bold">Rodada 23</span>
+                    <select
+                        class="bg-gray-100 border border-gray-300 rounded-md p-2 text-sm focus:ring-green-500 focus:border-green-500">
+                        <option>Rodada 23 (Atual)</option>
+                        <option>Rodada 24</option>
+                        <option>Rodada 25</option>
+                        <option>Resultados Anteriores</option>
+                    </select>
+                </div>
+
+                <div class="space-y-4 bg-white p-4 rounded-b-xl shadow-xl border border-gray-200">
+                    <div class="border-b pb-3 pt-1">
+                        <span class="text-sm text-slate-500 font-semibold">Sábado, 25 de Agosto</span>
+                    </div>
+
+                    <div
+                        class="flex justify-between items-center py-2 px-3 hover:bg-slate-50 transition-colors border-l-4 border-yellow-500 rounded-md">
+                        <div class="flex-1 min-w-0">
+                            <span class="text-xs text-green-600 font-medium block">16:00 | Maracanã (RJ)</span>
+                            <p class="font-semibold text-base whitespace-nowrap overflow-hidden text-ellipsis">
+                                Fluminense <span class="font-normal text-slate-500">vs</span> Atlético-MG
+                            </p>
+                        </div>
+                        <a href="https://exemplo.com/detalhes-jogo-flu-cam" target="_blank" class="text-green-700 hover:text-green-500 text-sm font-semibold flex items-center gap-1 ml-4">
+                            Detalhes <i data-feather="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <div
+                        class="flex justify-between items-center py-2 px-3 hover:bg-slate-50 transition-colors border-l-4 border-green-500 rounded-md">
+                        <div class="flex-1 min-w-0">
+                            <span class="text-xs text-green-600 font-medium block">18:30 | Arena Corinthians (SP)</span>
+                            <p class="font-semibold text-base whitespace-nowrap overflow-hidden text-ellipsis">
+                                Corinthians <span class="font-normal text-slate-500">vs</span> Palmeiras
+                            </p>
+                        </div>
+                        <a href="https://exemplo.com/detalhes-jogo-cor-pal" target="_blank" class="text-green-700 hover:text-green-500 text-sm font-semibold flex items-center gap-1 ml-4">
+                            Detalhes <i data-feather="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="artilharia" class="tab-content mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-800 flex items-center gap-3 mb-6">
+                    <i data-feather="award" class="w-7 h-7 text-yellow-500"></i>
+                    Artilharia do Campeonato
+                </h2>
+
+                <div class="bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden">
+                    <div class="overflow-x-auto scrollbar-hide">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200 sticky top-0 z-10">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3 font-bold">Pos</th>
+                                    <th scope="col" class="px-4 py-3 font-bold">Jogador</th>
+                                    <th scope="col" class="px-4 py-3 font-bold hidden md:table-cell">Clube</th>
+                                    <th scope="col" class="px-4 py-3 text-center font-black text-slate-900 bg-slate-100">
+                                        Gols</th>
+                                    <th scope="col" class="px-4 py-3 text-center hidden md:table-cell">Assis.</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="hover:bg-yellow-50 transition-colors">
+                                    <td class="px-4 py-3 text-center text-yellow-600 font-bold">1</td>
+                                    <td class="px-4 py-3 font-semibold flex items-center">
+                                        <span class="mr-3 font-black text-xl text-yellow-500">⚽</span> Pedro
+                                    </td>
+                                    <td class="px-4 py-3 font-medium hidden md:table-cell">Flamengo</td>
+                                    <td class="px-4 py-3 text-center font-black text-lg bg-slate-50">18</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">5</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-4 py-3 text-center font-bold">2</td>
+                                    <td class="px-4 py-3 font-semibold flex items-center">
+                                        <span class="mr-3 font-black text-xl text-slate-400">⚽</span> Hulk
+                                    </td>
+                                    <td class="px-4 py-3 font-medium hidden md:table-cell">Atlético-MG</td>
+                                    <td class="px-4 py-3 text-center font-black text-lg bg-slate-50">15</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">3</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-4 py-3 text-center font-bold">3</td>
+                                    <td class="px-4 py-3 font-semibold flex items-center">
+                                        <span class="mr-3 font-black text-xl text-slate-400">⚽</span> Cano
+                                    </td>
+                                    <td class="px-4 py-3 font-medium hidden md:table-cell">Fluminense</td>
+                                    <td class="px-4 py-3 text-center font-black text-lg bg-slate-50">14</td>
+                                    <td class="px-4 py-3 text-center hidden md:table-cell">2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="estatisticas" class="tab-content mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-800 flex items-center gap-3 mb-6">
+                    <i data-feather="bar-chart-2" class="w-7 h-7 text-yellow-500"></i>
+                    Estatísticas Avançadas
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-green-500">
+                        <h3 class="text-xl font-bold mb-2">Melhor Ataque</h3>
+                        <p class="text-3xl font-extrabold text-green-700">45 Gols</p>
+                        <p class="text-sm text-slate-500">Flamengo (Média de 2.14 por jogo)</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
+                        <h3 class="text-xl font-bold mb-2">Melhor Defesa</h3>
+                        <p class="text-3xl font-extrabold text-blue-700">10 Gols Sofridos</p>
+                        <p class="text-sm text-slate-500">Flamengo (Média de 0.47 por jogo)</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500">
+                        <h3 class="text-xl font-bold mb-2">Fair Play (Pior)</h3>
+                        <p class="text-3xl font-extrabold text-red-700">67 Cartões</p>
+                        <p class="text-sm text-slate-500">Vasco (59 Amarelos, 8 Vermelhos)</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-6 bg-white rounded-xl shadow-xl border border-gray-200">
+                    <h3 class="text-2xl font-bold mb-4">Gráfico de Aproveitamento (Exemplo)</h3>
+                    <img src="https://via.placeholder.com/1000x300/f3f4f6/374151?text=GR%C3%81FICO+DE+APROVEITAMENTO+POR+ZONA"
+                        alt="Gráfico de Aproveitamento" class="w-full rounded-lg border">
+                </div>
+            </section>
+
+            <section id="mercado" class="tab-content mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-800 flex items-center gap-3 mb-6">
+                    <i data-feather="refresh-cw" class="w-7 h-7 text-yellow-500"></i>
+                    Mercado da Bola (Rumores e Oficiais)
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-500">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-blue-700">
+                            <i data-feather="zap" class="w-5 h-5"></i> ÚLTIMOS RUMORES
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex justify-between items-center text-sm border-b pb-2">
+                                <span><span class="font-bold">Mbappé</span> no Vasco?</span>
+                                <span class="text-red-500 font-medium">0% Chance</span>
+                            </li>
+                            <li class="flex justify-between items-center text-sm border-b pb-2">
+                                <span><span class="font-bold">Goleiro Cássio</span> negocia com o Cruzeiro.</span>
+                                <span class="text-yellow-600 font-medium">80% Forte</span>
+                            </li>
+                            <li class="flex justify-between items-center text-sm border-b pb-2">
+                                <span><span class="font-bold">Lateral Fagner</span> de saída.</span>
+                                <span class="text-orange-500 font-medium">50% Médio</span>
+                            </li>
+                        </ul>
+                        <a href="https://exemplo.com/rumores" target="_blank" class="mt-4 text-sm text-blue-500 hover:text-blue-700 font-semibold flex items-center gap-1">
+                            Ver todos os Rumores <i data-feather="chevrons-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-green-500">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-green-700">
+                            <i data-feather="check-circle" class="w-5 h-5"></i> OFICIALIZADOS
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex justify-between items-center text-sm border-b pb-2">
+                                <span><span class="font-bold">Técnico X</span> assina com o Botafogo.</span>
+                                <span class="text-green-600 font-medium">FECHADO</span>
+                            </li>
+                            <li class="flex justify-between items-center text-sm border-b pb-2">
+                                <span><span class="font-bold">Meia Y</span> volta ao São Paulo por empréstimo.</span>
+                                <span class="text-green-600 font-medium">FECHADO</span>
+                            </li>
+                            <li class="flex justify-between items-center text-sm border-b pb-2">
+                                <span><span class="font-bold">Zagueiro Z</span> vendido ao exterior.</span>
+                                <span class="text-green-600 font-medium">FECHADO</span>
+                            </li>
+                        </ul>
+                        <a href="https://exemplo.com/oficializados" target="_blank" class="mt-4 text-sm text-green-500 hover:text-green-700 font-semibold flex items-center gap-1">
+                            Ver todas as Contratações <i data-feather="chevrons-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="simulador" class="tab-content mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-800 flex items-center gap-3 mb-6">
+                    <i data-feather="cpu" class="w-7 h-7 text-yellow-500"></i>
+                    Simulador de Resultados
+                </h2>
+
+                <div class="bg-white p-6 rounded-xl shadow-xl border border-gray-200">
+                    <p class="text-lg text-slate-700 mb-6">
+                        Simule os resultados das próximas rodadas para descobrir quem será o campeão, quem vai para a Libertadores e quem será rebaixado!
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-4 border-b pb-4">
+                            <span class="font-bold text-lg w-full md:w-1/4">Rodada 23</span>
+                            <div class="flex items-center w-full md:w-3/4 justify-between">
+                                <span class="font-semibold w-1/3 text-right">Palmeiras</span>
+                                <select id="simulacao-jogo-1" class="mx-2 p-1 border rounded text-sm">
+                                    <option value="V1">1x0 (Palmeiras)</option>
+                                    <option value="D1">0x1 (Cruzeiro)</option>
+                                    <option value="E">0x0 (Empate)</option>
+                                    <option value="V1">2x1 (Palmeiras)</option>
+                                    <option value="D1">1x2 (Cruzeiro)</option>
+                                </select>
+                                <span class="font-semibold w-1/3 text-left">Cruzeiro</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row items-center gap-4 border-b pb-4">
+                            <span class="font-bold text-lg w-full md:w-1/4">Rodada 23</span>
+                            <div class="flex items-center w-full md:w-3/4 justify-between">
+                                <span class="font-semibold w-1/3 text-right">Corinthians</span>
+                                <select id="simulacao-jogo-2" class="mx-2 p-1 border rounded text-sm">
+                                    <option value="V1">1x0 (Corinthians)</option>
+                                    <option value="D1">0x1 (Flamengo)</option>
+                                    <option value="E">1x1 (Empate)</option>
+                                    <option value="V1">2x0 (Corinthians)</option>
+                                    <option value="D1">0x2 (Flamengo)</option>
+                                </select>
+                                <span class="font-semibold w-1/3 text-left">Flamengo</span>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center pt-4">
+                            <button id="simular-btn" class="bg-green-700 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors flex items-center justify-center mx-auto">
+                                <i data-feather="play" class="w-5 h-5 mr-2"></i>
+                                Rodar Simulação!
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="simulacao-resultado" class="mt-8 p-4 bg-gray-100 rounded-lg border border-gray-300">
+                        <h4 class="font-bold text-xl mb-2 text-green-700">Resultado da Simulação:</h4>
+                        <p class="text-sm">Clique em "Rodar Simulação!" para ver o novo cenário da tabela.</p>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-12 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">
+                <span class="font-bold text-white">Golazo!</span> &copy; 2025 | Todos os direitos reservados.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="https://twitter.com/exemplo" target="_blank" class="hover:text-white transition-colors"><i data-feather="twitter" class="w-5 h-5"></i></a>
+                <a href="https://instagram.com/exemplo" target="_blank" class="hover:text-white transition-colors"><i data-feather="instagram" class="w-5 h-5"></i></a>
+                <a href="mailto:contato@exemplo.com" class="hover:text-white transition-colors"><i data-feather="mail" class="w-5 h-5"></i></a>
+            </div>
+            <p class="text-xs mt-4">
+                Dados fornecidos por Fontes Esportivas. A Tabela é uma simulação da Série A do Brasileirão.
+            </p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Inicializa os ícones do Feather Icons
+        feather.replace();
+
+        // 1. LÓGICA DO MENU MOBILE
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            // Altera o ícone de menu/X
+            const icon = this.querySelector('i');
+            if (menu.classList.contains('hidden')) {
+                icon.setAttribute('data-feather', 'menu');
+            } else {
+                icon.setAttribute('data-feather', 'x');
+            }
+            // Re-renderiza o ícone (necessário para o feather icons)
+            feather.replace(); 
+        });
+
+        // 2. LÓGICA DO SISTEMA DE ABAS (TABS)
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetTab = this.getAttribute('data-tab');
+
+                // Esconde todo o conteúdo
+                tabContents.forEach(content => {
+                    content.classList.remove('active-tab');
+                });
+
+                // Remove a classe 'active-link' de todos os links de abas
+                document.querySelectorAll('.tab-link').forEach(l => {
+                    l.classList.remove('active-link');
+                });
+
+                // Adiciona 'active-tab' ao conteúdo alvo
+                const activeContent = document.getElementById(targetTab);
+                if (activeContent) {
+                    activeContent.classList.add('active-tab');
+                }
+
+                // Adiciona 'active-link' aos links do menu desktop e mobile para a aba ativa
+                document.querySelectorAll(`.tab-link[data-tab="${targetTab}"]`).forEach(l => {
+                    l.classList.add('active-link');
+                });
+
+                // Fecha o menu mobile após o clique (apenas se estiver aberto)
+                const mobileMenu = document.getElementById('mobile-menu');
+                const mobileMenuIcon = document.getElementById('mobile-menu-btn').querySelector('i');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuIcon.setAttribute('data-feather', 'menu');
+                    feather.replace();
+                }
+
+                // Scroll suave para o topo da main (opcional, mas melhora a UX)
+                document.querySelector('main').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+
+        // 3. LÓGICA DE SIMULAÇÃO (apenas um exemplo de UX, sem cálculos reais)
+        const simularBtn = document.getElementById('simular-btn');
+        const simulacaoResultado = document.getElementById('simulacao-resultado');
+
+        if (simularBtn) {
+            simularBtn.addEventListener('click', function() {
+                const resultado1 = document.getElementById('simulacao-jogo-1').value;
+                const resultado2 = document.getElementById('simulacao-jogo-2').value;
+
+                let campeao = '';
+                let rebaixado = '';
+                let textoExtra = '';
+
+                // Lógica de exemplo simplificada para o simulador
+                if (resultado1 === 'V1' && resultado2 === 'D1') {
+                    campeao = 'Palmeiras';
+                    rebaixado = 'Corinthians';
+                    textoExtra = 'A vitória do Palmeiras no clássico foi crucial. ';
+                } else if (resultado1 === 'D1' && resultado2 === 'V1') {
+                    campeao = 'Flamengo';
+                    rebaixado = 'Cruzeiro';
+                    textoExtra = 'A virada do Flamengo no último minuto decidiu o título. ';
+                } else {
+                     campeao = 'Flamengo'; // Padrão
+                     rebaixado = 'Vitória'; // Padrão
+                     textoExtra = 'Os resultados mantiveram a classificação como estava, com forte briga pela Liberta.';
+                }
+
+
+                simulacaoResultado.innerHTML = `
+                    <h4 class="font-bold text-xl mb-2 text-green-700">Resultado da Simulação:</h4>
+                    <p class="text-sm">
+                        ${textoExtra} O simulador aponta o **${campeao}** como seu campeão e o **${rebaixado}** em situação crítica de rebaixamento.
+                    </p>
+                `;
+
+                // Efeito visual de que a simulação rodou
+                simulacaoResultado.classList.add('border-yellow-500');
+                simulacaoResultado.classList.add('bg-yellow-50');
+                setTimeout(() => {
+                    simulacaoResultado.classList.remove('border-yellow-500');
+                    simulacaoResultado.classList.remove('bg-yellow-50');
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+
+</html>
